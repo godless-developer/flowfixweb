@@ -7,10 +7,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Search, X } from "lucide-react";
+import { Expand, Search, X } from "lucide-react";
 import Image from "next/image";
 import GeneralTab from "./GeneralTab";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Questions from "./chat/Question";
 import Login from "./auth/login";
 import Signup from "./auth/signup";
@@ -21,25 +21,37 @@ export default function AvatarSearch() {
 
   const [showSignup, setShowSignup] = useState(false);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const [userName, setUserName] = useState<string>("");
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUserName(parsedUser.name); // name авна
+    }
+  }, []);
+
   const handleSwitch = () => {
     setShowSignup((prev) => !prev);
   };
 
-  const handleCloseDialog = () => {
-    setDialogOpen(false);
+  //   const handleCloseDialog = () => {
+  //     setDialogOpen(false);
+  //   };
+
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
   };
 
   return (
     <>
-      {/* Dialog Trigger харагдах нөхцөл */}
       {!dialogOpen && !popoverOpen && (
         <div
           className="flex flex-col items-center gap-2 w-full cursor-pointer"
-          onClick={() => setDialogOpen(true)}
+          onClick={handleDialogOpen}
         >
-          <div className="flex justify-start w-full mb-4">
-            <span className="text-white bg-red-600 rounded-full px-2">1</span>
-          </div>
           <Image
             src={"/pikachu.png"}
             alt="Pikachu"
@@ -59,19 +71,22 @@ export default function AvatarSearch() {
         </div>
       )}
 
-      {/* Dialog нээгдэнэ */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className=" sm:max-w-[906px] w-full h-[618px]">
-          {/* <GeneralTab
-            minimize={() => {
-              setDialogOpen(false);
-              setPopoverOpen(true);
-            }}
-          /> */}
-          {showSignup ? (
+          {isLoggedIn ? (
+            <GeneralTab
+              minimize={() => {
+                setDialogOpen(false);
+                setPopoverOpen(true);
+              }}
+            />
+          ) : showSignup ? (
             <Signup onSwitch={handleSwitch} />
           ) : (
-            <Login onSwitch={handleSwitch} />
+            <Login
+              onSwitch={handleSwitch}
+              onLoginSuccess={() => setIsLoggedIn(true)} // ⬅️ дамжуулна
+            />
           )}
         </DialogContent>
         <DialogHeader></DialogHeader>
@@ -90,16 +105,18 @@ export default function AvatarSearch() {
               <X size={16} />
             </button>
           </div>
-          <Questions />
-          <button
-            className="bg-blue-600 text-white px-4 py-2 rounded-full w-full"
-            onClick={() => {
-              setPopoverOpen(false);
-              setDialogOpen(true);
-            }}
-          >
-            Буцааж нээх
-          </button>
+          <div className="w-full flex justify-end ">
+            <button
+              className="cursor-pointer"
+              onClick={() => {
+                setPopoverOpen(false);
+                setDialogOpen(true);
+              }}
+            >
+              <Expand />
+            </button>
+          </div>
+          <Questions userName={userName} />
         </div>
       )}
     </>

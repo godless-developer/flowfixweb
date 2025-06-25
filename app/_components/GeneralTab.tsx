@@ -1,14 +1,26 @@
+"use client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Settings } from "./Setting";
 import Questions from "./chat/Question";
 import Buddy from "./Buddy";
-import { Minimize } from "lucide-react";
+import { Minimize2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import Todo from "./Todo";
 
 type Props = {
   minimize: () => void;
 };
 
 export default function GeneralTab({ minimize }: Props) {
+  const [userName, setUserName] = useState<string>("");
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUserName(parsedUser.name); // name авна
+    }
+  }, []);
   return (
     <Tabs defaultValue="Question" className="flex flex-col gap-8">
       <TabsList className="mx-auto grid w-[340px] rounded-[99px] grid-cols-4">
@@ -42,21 +54,23 @@ export default function GeneralTab({ minimize }: Props) {
           <div>
             <button
               onClick={minimize}
-              className="text-gray-600 hover:text-black transition"
+              className="text-gray-600 hover:text-black transition cursor-pointer"
             >
-              <Minimize />
+              <Minimize2 />
             </button>
           </div>
         </div>
       </TabsList>
 
       <TabsContent value="Question">
-        <Questions />
+        <Questions userName={userName} />
       </TabsContent>
       <TabsContent value="Buddy">
-        <Buddy />
+        <Buddy userName={userName} />
       </TabsContent>
-      <TabsContent value="Todo">TODO tab</TabsContent>
+      <TabsContent value="Todo">
+        <Todo />
+      </TabsContent>
       <TabsContent value="Settings">
         <Settings />
       </TabsContent>

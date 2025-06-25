@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 import { Search, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,56 +9,71 @@ import { CardContent, CardHeader } from "@/components/ui/card";
 import Image from "next/image";
 import ChatMessage from "./ChatMessage";
 import ChatForm from "./ChatForm";
-import { useEffect, useRef, useState } from "react";
-
-const questions = [
-  { q: "Ариун цэврийн өрөө хаана байдаг вэ?" },
-  { q: "Хэдэн цагт тарах вэ?" },
-  { q: "Принтер хаана байрладаг вэ?" },
-  { q: "Цайны цаг хэзээ вэ?" },
-  { q: "Өглөө хэдэн цагт ирэх ёстой вэ?" },
-  { q: "Өдөр бүрийн төлөвлөгөөг хаанаас харж болох вэ?" },
-  { q: "Шинэ хүмүүстэй танилцах хамгийн сайн арга юу вэ?" },
-];
 
 type ChatMessageType = { role: "model" | "user"; text: string };
 
-export default function Questions() {
+export default function Questions({ userName }: { userName: string }) {
   const [chatHistory, setChatHistory] = useState<ChatMessageType[]>([]);
+  const [initialLoaded, setInitialLoaded] = useState(false);
   const chatBodyRef = useRef<HTMLDivElement>(null);
 
+  // 🧠 AI chatbot хариу үүсгэх
   const generateBotResponse = async (history: ChatMessageType[]) => {
     const updateHistory = (text: string) => {
       setChatHistory((prev) => [
-        ...prev.filter((msg: ChatMessageType) => msg.text !== "..."),
+        ...prev.filter((msg) => msg.text !== ". . ."),
         { role: "model", text },
       ]);
     };
+
     const apiHistory = history.map(({ role, text }) => ({
       role,
       parts: [{ text }],
     }));
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contents: apiHistory }),
-    };
 
     try {
-      const response = await fetch(
-        process.env.NEXT_PUBLIC_API_KEY as string,
-        requestOptions
-      );
+      const response = await fetch(process.env.NEXT_PUBLIC_API_KEY as string, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contents: apiHistory }),
+      });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error.message || "wronng");
+      if (!response.ok) throw new Error(data.error.message || "Алдаа");
+
       const apiResponseText = data.candidates[0].content.parts[0].text
         .replace(/\*\*(.*?)\*\*/g, "$1")
         .trim();
       updateHistory(apiResponseText);
     } catch (error) {
-      console.log(error);
+      console.error("AI хариу авахад алдаа:", error);
     }
   };
+
+  // 🏁 Start - fetch companyInfo from API
+  useEffect(() => {
+    const fetchCompanyInfo = async () => {
+      try {
+        const res = await axios.get("/api/info");
+        if (res.data.length > 0) {
+          const latestInfo = res.data[res.data.length - 1].companyInfo;
+
+          // 🔰 initial companyInfo-г chatHistory-д model мэдлэг болгон нэмэх
+          setChatHistory([
+            {
+              role: "model",
+              text: latestInfo,
+            },
+          ]);
+          console.log(latestInfo);
+          setInitialLoaded(true);
+        }
+      } catch (err) {
+        console.error("Компанийн мэдээлэл татаж чадсангүй:", err);
+      }
+    };
+
+    fetchCompanyInfo();
+  }, []);
 
   useEffect(() => {
     if (chatBodyRef.current) {
@@ -66,6 +83,7 @@ export default function Questions() {
       });
     }
   }, [chatHistory]);
+
   return (
     <div className="w-full flex flex-col">
       <CardHeader>
@@ -79,26 +97,29 @@ export default function Questions() {
               className="object-cover"
             />
           </div>
-          <h2 className="text-[16px] text-[#000000]">Pikachu</h2>
+          <h2 className="text-[16px] text-[#000000]">
+            {userName || "Pikachu"}
+          </h2>
         </div>
       </CardHeader>
 
-      {chatHistory ? (
+      {initialLoaded ? (
         <>
           <div
             ref={chatBodyRef}
-            className="w-full p-4 overflow-scroll h-[380px] overflow-y-auto flex flex-col gap-4"
+            className="w-full p-4 h-[380px] overflow-y-auto flex flex-col gap-4"
           >
-            {chatHistory.map((chat, index) => (
-              <div
-                key={index}
-                className={` ${
-                  chat.role === "model" ? "self-start " : "self-end "
-                }`}
-              >
-                <ChatMessage chat={chat} />
-              </div>
-            ))}
+            {chatHistory.map((chat, index) => {
+              if (index === 0) return null;
+              return (
+                <div
+                  key={index}
+                  className={chat.role === "model" ? "self-start" : "self-end"}
+                >
+                  <ChatMessage chat={chat} />
+                </div>
+              );
+            })}
           </div>
 
           <ChatForm
@@ -108,43 +129,7 @@ export default function Questions() {
           />
         </>
       ) : (
-        <CardContent className="flex flex-col justify-between flex-1 ">
-          <div className="overflow-y-auto pr-1">
-            <p className="text-sm text-[#7F7F7F] mb-3">Жишээ асуултууд:</p>
-            <div className="space-y-2">
-              {questions.map((item, index) => (
-                <div key={index}>
-                  <Button
-                    className="inline-flex text-left justify-start h-auto py-2 px-3 text-[14px]
-             text-[#00000099] bg-white rounded-[24px] border border-[rgba(0,0,0,0.10)]
-             hover:bg-white hover:border-[rgba(0,0,0,0.10)] hover:shadow-none
-             focus:outline-none focus:ring-0 focus:border-[rgba(0,0,0,0.10)] cursor-default"
-                  >
-                    {item.q}
-                  </Button>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex gap-[8px] mt-4">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-              <Input
-                placeholder="Асуултаа асуугаарай"
-                className="pl-10 rounded-[24px] focus-visible:ring-0"
-              />
-            </div>
-            <Button
-              variant="ghost"
-              className="bg-[#2600FFB2] w-[40px] h-[40px] rounded-full
-             hover:bg-[#2600FFB2] hover:shadow-none hover:cursor-default
-             focus-visible:ring-0 focus-visible:outline-none border-none"
-            >
-              <Send className="w-4 h-4 text-white" />
-            </Button>
-          </div>
-        </CardContent>
+        <CardContent>Түр хүлээнэ үү...</CardContent>
       )}
     </div>
   );

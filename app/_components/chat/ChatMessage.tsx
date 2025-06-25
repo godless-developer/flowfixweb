@@ -1,5 +1,3 @@
-import ChatBotIcon from "./ChatBotIcon";
-
 interface ChatMessageProps {
   chat: {
     hideInChat?: boolean;
@@ -16,7 +14,6 @@ export default function ChatMessage({ chat }: ChatMessageProps) {
           chat.role === "model" ? "bot" : "user"
         }-message flex items-center w-full `}
       >
-        {/* {chat.role === "model" && <ChatBotIcon />} */}
         <p
           className={`${
             chat.role === "model"

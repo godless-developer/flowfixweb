@@ -33,8 +33,10 @@ export default function ChatForm({
     ]);
 
     setTimeout(() => {
-      // Optionally, you can set a placeholder string like "..." to indicate typing
-      setChatHistory((history) => [...history, { role: "model", text: "..." }]);
+      setChatHistory((history) => [
+        ...history,
+        { role: "model", text: ". . ." },
+      ]);
       generateBotResponse([
         ...chatHistory,
         { role: "user", text: ` pls use this :${userMessage}` },
@@ -60,7 +62,7 @@ export default function ChatForm({
         variant="ghost"
         className="bg-[#2600FFB2] w-[40px] h-[40px] rounded-full
              hover:bg-[#2600FFB2] hover:shadow-none hover:cursor-default
-             focus-visible:ring-0 focus-visible:outline-none border-none"
+             focus-visible:ring-0 focus-visible:outline-none border-none cursor-pointer"
       >
         <Send className="w-4 h-4 text-white" />
       </Button>

@@ -13,7 +13,7 @@ const characters = [
   { name: "Frog", img: "/frog.png" },
 ];
 
-export default function Buddy() {
+export default function Buddy({ userName }: { userName: string }) {
   const [selectedCharacter, setSelectedCharacter] = useState(0);
 
   return (
@@ -44,7 +44,7 @@ export default function Buddy() {
             </div>
             <div className="flex w-[174px] px-[40px] py-[12px] items-center gap-[10px] rounded-[8px] border border-[#C6C6C6] bg-[rgba(246,246,246,0.80)]">
               <p className="w-[94px] text-[#000] text-center text-[20px] font-[510] leading-normal">
-                {characters[selectedCharacter].name}
+                {userName || characters[selectedCharacter].name}
               </p>
             </div>
           </div>
