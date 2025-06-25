@@ -2,9 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { Search, Send } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { CardContent, CardHeader } from "@/components/ui/card";
 import Image from "next/image";
 import ChatMessage from "./ChatMessage";

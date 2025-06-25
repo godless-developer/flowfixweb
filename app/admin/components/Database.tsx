@@ -18,11 +18,11 @@ export default function Database() {
 
     try {
       setLoading(true);
-      const res = await axios.post("/api/info", { companyInfo });
+      await axios.post("/api/info", { companyInfo });
 
       toast.success("Амжилттай хадгалагдлаа!", { position: "top-center" });
       setCompanyInfo(""); // input-г цэвэрлэх
-    } catch (error) {
+    } catch {
       toast.error("Хадгалах үед алдаа гарлаа", { position: "top-center" });
     } finally {
       setLoading(false);

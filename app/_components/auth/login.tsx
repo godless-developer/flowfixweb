@@ -46,7 +46,7 @@ export default function Login({
           router.push("/");
         }
       }
-    } catch (e) {
+    } catch {
       toast.error("Сүлжээний алдаа", { position: "top-center" });
     } finally {
       setLoading(false);

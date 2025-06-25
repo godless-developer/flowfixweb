@@ -34,7 +34,7 @@ export default function Signup({ onSwitch }: { onSwitch: () => void }) {
         toast.success("Амжилттай бүртгэгдлээ!");
         onSwitch();
       }
-    } catch (e) {
+    } catch {
       toast.error("Сүлжээний алдаа гарлаа");
     } finally {
       setLoading(false);

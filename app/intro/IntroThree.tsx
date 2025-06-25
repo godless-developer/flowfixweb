@@ -8,7 +8,7 @@ type IntroTwoProps = {
   onSkip: () => void;
 };
 
-export default function IntroThree({ onNext, onSkip }: IntroTwoProps) {
+export default function IntroThree({ onSkip }: IntroTwoProps) {
   return (
     <div
       className="flex flex-col justify-center items-center gap-8 p-5 relative"

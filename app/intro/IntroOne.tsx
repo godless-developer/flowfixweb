@@ -35,12 +35,15 @@ export default function IntroOne({ onNext, onSkip }: Props) {
       />
 
       <div className="absolute bottom-5 left-0 w-full px-8 flex justify-between">
-        <button className="text-sm text-[#684DFF] underline" onClick={onSkip}>
+        <button
+          className="text-sm text-[#684DFF] underline cursor-pointer"
+          onClick={onSkip}
+        >
           Алгасах
         </button>
 
         <button
-          className="bg-[#684DFF] text-white px-4 py-2 rounded-xl"
+          className="bg-[#684DFF] text-white px-4 py-2 rounded-xl cursor-pointer"
           onClick={onNext}
         >
           Үргэлжлүүлэх

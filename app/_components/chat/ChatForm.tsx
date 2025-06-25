@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import Typing from "./Typing";
 import { Search, Send } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
