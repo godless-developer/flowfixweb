@@ -7,7 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Expand, Search, X } from "lucide-react";
+import { ChevronDown, Expand, Search } from "lucide-react";
 import Image from "next/image";
 import GeneralTab from "./GeneralTab";
 import { useEffect, useState } from "react";
@@ -72,7 +72,7 @@ export default function AvatarSearch() {
       )}
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className=" sm:max-w-[906px] w-full h-[618px]">
+        <DialogContent className="sm:max-w-[906px] h-[618px] py-5 px-8 flex flex-col rounded-8">
           {isLoggedIn ? (
             <GeneralTab
               minimize={() => {
@@ -94,18 +94,8 @@ export default function AvatarSearch() {
       </Dialog>
 
       {popoverOpen && (
-        <div className="fixed bottom-4 right-4 z-50 bg-white rounded-xl shadow-lg p-4 w-[350px]">
-          <div className="flex justify-between items-center mb-2">
-            <button
-              onClick={() => {
-                setPopoverOpen(false);
-              }}
-              className="text-gray-400 hover:text-black"
-            >
-              <X size={16} />
-            </button>
-          </div>
-          <div className="w-full flex justify-end ">
+        <div className="fixed bottom-4 right-4 z-50 bg-white rounded-xl shadow-lg p-4 w-[350px] relative">
+          <div className="flex justify-end items-center gap-2">
             <button
               className="cursor-pointer"
               onClick={() => {
@@ -115,7 +105,16 @@ export default function AvatarSearch() {
             >
               <Expand />
             </button>
+            <button
+              onClick={() => {
+                setPopoverOpen(false);
+              }}
+              className="text-black hover:text-black"
+            >
+              <ChevronDown size={24} />
+            </button>
           </div>
+
           <Questions userName={userName} />
         </div>
       )}

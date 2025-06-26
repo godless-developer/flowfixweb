@@ -3,9 +3,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Settings } from "./Setting";
 import Questions from "./chat/Question";
 import Buddy from "./Buddy";
-import { Minimize2 } from "lucide-react";
+import { Shrink, User, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import Todo from "./Todo";
+import { DialogClose } from "@/components/ui/dialog";
 
 type Props = {
   minimize: () => void;
@@ -22,15 +23,15 @@ export default function GeneralTab({ minimize }: Props) {
     }
   }, []);
   return (
-    <Tabs defaultValue="Question" className="flex flex-col gap-8">
-      <TabsList className="mx-auto grid w-[340px] rounded-[99px] grid-cols-4">
+    <Tabs defaultValue="Question" className="flex flex-col relative">
+      <TabsList className="mx-auto grid w-[340px] rounded-[99px] grid-cols-4 ">
         <div className="flex gap-40">
-          <div className="flex gap-4">
+          <div className="flex gap-2">
             <TabsTrigger
               value="Question"
               className="rounded-[99px] cursor-pointer"
             >
-              Question
+              Асуулт
             </TabsTrigger>
             <TabsTrigger
               value="Buddy"
@@ -42,22 +43,31 @@ export default function GeneralTab({ minimize }: Props) {
               value="Todo"
               className="rounded-[99px] cursor-pointer px-4"
             >
-              Todo
+              Хийх зүйлс
             </TabsTrigger>
             <TabsTrigger
               value="Settings"
               className="rounded-[99px] cursor-pointer"
             >
-              Settings
+              Тохиргоо
             </TabsTrigger>
           </div>
-          <div>
+          <div className="flex absolute top-[-2] right-0">
+            <button className="text-gray-600 hover:text-black transition cursor-pointer p-2">
+              <User />
+            </button>
             <button
               onClick={minimize}
-              className="text-gray-600 hover:text-black transition cursor-pointer"
+              className="text-gray-600 hover:text-black transition cursor-pointer p-2"
             >
-              <Minimize2 />
+              <Shrink />
             </button>
+            <DialogClose>
+              <X
+                size={24}
+                className="text-gray-600 hover:text-black transition cursor-pointer "
+              />
+            </DialogClose>
           </div>
         </div>
       </TabsList>
