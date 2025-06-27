@@ -20,7 +20,7 @@ export default function IntroTwo({ onNext, onSkip }: Props) {
       }}
     >
       <div className="relative bg-gray-100 px-6 py-4 rounded-xl max-w-xl text-center shadow-md">
-        <p className="text-gray-800 text-lg font-medium">
+        <p className="text-black text-base font-sf-pro">
           Мэдэхгүй зүйлээ надаас асууж байгаарай.
         </p>
         <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-gray-100" />
@@ -36,14 +36,14 @@ export default function IntroTwo({ onNext, onSkip }: Props) {
 
       <div className="absolute bottom-5 left-0 w-full px-8 flex justify-between">
         <button
-          className="text-sm text-[#684DFF] underline cursor-pointer"
+          className="px-4 py-3 text-sm text-black/60 underline cursor-pointer"
           onClick={onSkip}
         >
           Алгасах
         </button>
 
         <button
-          className="bg-[#684DFF] text-white px-4 py-2 rounded-xl cursor-pointer"
+          className="bg-[#684DFF] text-white px-4 py-3 rounded-3xl cursor-pointer"
           onClick={onNext}
         >
           Үргэлжлүүлэх

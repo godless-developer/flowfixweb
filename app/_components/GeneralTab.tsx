@@ -54,16 +54,17 @@ export default function GeneralTab({ minimize }: Props) {
           </div>
           <div className="flex absolute top-[-2] right-0">
             <button className="text-gray-600 hover:text-black transition cursor-pointer p-2">
-              <User />
+              <User strokeWidth={1.5} />
             </button>
             <button
               onClick={minimize}
               className="text-gray-600 hover:text-black transition cursor-pointer p-2"
             >
-              <Shrink />
+              <Shrink strokeWidth={1.5} />
             </button>
             <DialogClose>
               <X
+                strokeWidth={1.5}
                 size={24}
                 className="text-gray-600 hover:text-black transition cursor-pointer "
               />

@@ -31,7 +31,7 @@ export default function IntroThree({ onSkip }: IntroTwoProps) {
           className="w-[80px] h-[80px]"
         />
         <div className="relative bg-gray-100 px-6 py-4 rounded-xl max-w-xl shadow-md">
-          <p className="text-gray-800 text-lg font-medium">
+          <p className="text-black text-base font-sf-pro">
             Би доорх төрлийн асуултуудад хариулж чадна
           </p>
           <div className="absolute -bottom-3 left-12 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-gray-100" />
@@ -62,14 +62,14 @@ export default function IntroThree({ onSkip }: IntroTwoProps) {
 
       <div className="absolute bottom-5 left-8 right-8 flex justify-between">
         <button
-          className="text-sm text-[#684DFF] underline cursor-pointer"
+          className="px-4 py-3 text-sm text-black/60 underline cursor-pointer"
           onClick={onSkip}
         >
           Алгасах
         </button>
         <Link
           href={"./"}
-          className="bg-[#684DFF] text-white px-4 py-2 rounded-xl transition cursor-pointer"
+          className="bg-[#684DFF] text-white px-4 py-3 rounded-3xl cursor-pointer"
         >
           Үргэлжлүүлэх
         </Link>
