@@ -24,14 +24,14 @@ export default function IntroThree({ onSkip }: IntroTwoProps) {
     >
       <div className="flex gap-4 items-start">
         <Image
-          src="/pikachu.png"
-          alt="Pikachu"
+          src="/frog.gif"
+          alt="frog"
           width={80}
           height={80}
           className="w-[80px] h-[80px]"
         />
-        <div className="relative bg-gray-100 px-6 py-4 rounded-xl max-w-xl shadow-md">
-          <p className="text-gray-800 text-lg font-medium">
+        <div className="relative bg-gray-100 px-6 py-4 rounded-[16px] w-[294px] h-[78px] shadow-md">
+          <p className="text-[#000000] text-[16px] font-normal w-[254px] h-[38px]">
             Би доорх төрлийн асуултуудад хариулж чадна
           </p>
           <div className="absolute -bottom-3 left-12 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-gray-100" />
@@ -45,13 +45,13 @@ export default function IntroThree({ onSkip }: IntroTwoProps) {
             title="Компанийн дотоод дүрэм, гэрээ"
             description="Түлхүүр үг ашиглан хялбархан хэрэгтэй мэдээллээ асуух боломжтой"
           />
-          <div className="w-full h-px bg-gray-300 mt-8" />
+
           <OptionItem
             icon="/2.png"
             title="Оффисын талаар"
             description="Ямар нэг зүйл олохгүй, мэдэхгүй бол санаа зоволгүй асуугаарай"
           />
-          <div className="w-full h-px bg-gray-300 mt-8" />
+
           <OptionItem
             icon="/3.png"
             title="Ажлын талаар бүхий л зүйлс"
@@ -62,14 +62,14 @@ export default function IntroThree({ onSkip }: IntroTwoProps) {
 
       <div className="absolute bottom-5 left-8 right-8 flex justify-between">
         <button
-          className="text-sm text-[#684DFF] underline cursor-pointer"
+          className="text-[rgba(0,0,0,0.60)] text-[16px] font-medium font-sans underline underline-offset-[4px] decoration-solid decoration-1 cursor-pointer text-center"
           onClick={onSkip}
         >
           Алгасах
         </button>
         <Link
           href={"./"}
-          className="bg-[#684DFF] text-white px-4 py-2 rounded-xl transition cursor-pointer"
+          className="flex w-[146px] px-4 py-3 justify-center items-center gap-[10px] rounded-[24px] bg-[#684DFF] text-white cursor-pointer"
         >
           Үргэлжлүүлэх
         </Link>
