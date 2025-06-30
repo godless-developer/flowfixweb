@@ -105,12 +105,12 @@ export default function AdminSet() {
               <DialogDescription></DialogDescription>
             </DialogHeader>
             <DialogFooter>
-              <Button
+              {/* <Button
                 type="submit"
                 className="rounded-[24px] px-8 py-4 bg-[#684DFF] cursor-pointer"
               >
                 Болсон
-              </Button>
+              </Button> */}
             </DialogFooter>
           </DialogContent>
         </form>

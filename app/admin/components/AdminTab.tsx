@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Database from "./Database";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import ReminderForAllEmployees from "./ReminderForAllEmployees";
 
 export default function AdminTab() {
   const router = useRouter();
@@ -42,7 +43,7 @@ export default function AdminTab() {
             Өгөгдөл оруулах
           </TabsTrigger>
           <TabsTrigger
-            value="information"
+            value="ReminderForAllEmployees"
             className="rounded-[99px] cursor-pointer px-3"
           >
             Мэдээлэл
@@ -52,7 +53,9 @@ export default function AdminTab() {
         <TabsContent value="database">
           <Database />
         </TabsContent>
-        <TabsContent value="information">soon...</TabsContent>
+        <TabsContent value="ReminderForAllEmployees">
+          <ReminderForAllEmployees />
+        </TabsContent>
       </Tabs>
     </>
   );
