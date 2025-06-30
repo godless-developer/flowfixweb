@@ -3,7 +3,6 @@
 import { Settings } from "lucide-react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -104,14 +103,7 @@ export default function AdminSet() {
               <DialogTitle></DialogTitle>
               <DialogDescription></DialogDescription>
             </DialogHeader>
-            <DialogFooter>
-              {/* <Button
-                type="submit"
-                className="rounded-[24px] px-8 py-4 bg-[#684DFF] cursor-pointer"
-              >
-                Болсон
-              </Button> */}
-            </DialogFooter>
+            <DialogFooter></DialogFooter>
           </DialogContent>
         </form>
       </Dialog>
